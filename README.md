@@ -30,8 +30,8 @@ There's no OSX UI support for this change at this point. For Linux change follow
 
 ## Note:
 
- All passwords in this tutorial are preset to “splunk123” (applies to everything).
- Please to not disable sshd, hadoop uses rsync to communicate with the nodes.
+ - All passwords in this tutorial are preset to “splunk123” (applies to everything).
+ - Please to not disable sshd, hadoop uses rsync to communicate with the nodes.
 
 ## Pre-installed and pre-configured packages:
 - hadoop-2.9.0 (yarn)	http://apache.claz.org/hadoop/common/hadoop-2.9.0/hadoop-2.9.0.tar.gz
