@@ -179,9 +179,9 @@ RUN rm -f /tmp/mysql-connector-java-5.1.44.tar.gz
 #RUN rm -f /tmp/splunk-add-on-for-kafka_110.tgz
 
 #Kafka connect app (beta)
-COPY splunk_apps/kafka-connect-splunk.tar.gz /tmp
-RUN tar -zxf /tmp/kafka-connect-splunk.tar.gz -C /var/opt/splunk/etc/apps
-RUN rm -f /tmp/kafka-connect-splunk.tar.gz
+#COPY splunk_apps/kafka-connect-splunk.tar.gz /tmp
+#RUN tar -zxf /tmp/kafka-connect-splunk.tar.gz -C /var/opt/splunk/etc/apps
+#RUN rm -f /tmp/kafka-connect-splunk.tar.gz
 
 #Configuring indexers [include hadoop vidx]
 COPY splunk_apps/indexes.tgz /tmp/indexes.tgz
