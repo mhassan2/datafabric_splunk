@@ -1,6 +1,11 @@
 ## Introduction:
 The purpose of this docker container  is to correlate the components that make up the Splunk data fabric embrace initiative process. The practitioners can now immediately try and experience the power of a Splunk integration with different external software components like Hadoop, RDBMS, Kafka and Nifi, with the ability to search, visualize and analyze the pre-populated data. There is no hassle of setting them up separately!
 
+# Pull in local copy of this repository (optional):
+``
+https://github.com/mhassan2/datafabric_splunk
+```
+
 ## Prerequisites (Mac OSX):
 1. Install docker and allocate all available memory and CPU to docker daemon:
    \> preference \-> advance \-> slide CPU and Memory line all the way to the right \-> apply & restart
