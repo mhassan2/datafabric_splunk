@@ -1,9 +1,38 @@
-tar --exclude='/Users/mhassan/datafabric_splunk/.git' -czvf datafabric_splunk.tgz datafabric_splunk/*
-  898  cd datafabric_splunk
-  899  tar --exclude='./.git' -czvf datafabric_splunk.tgz datafabric_splunk/*
-  900  scp -i mhassan_aws.pem -r datafabric_splunk.tgz ubuntu@ec2-34-206-145-1.compute-1.amazonaws.com:/home/ubuntu
-  901  scp -i ~/mhassan_aws.pem -r datafabric_splunk.tgz ubuntu@ec2-34-206-145-1.compute-1.amazonaws.com:/home/ubuntu
-  902  docker ps -a
-  903  docker images
-  904  grep build clean_build.sh
-  905  grep run clean_build.sh
+
+#Exclude dir from tar
+tar --exclude='./.git' -czvf datafabric_splunk.tgz datafabric_splunk/*
+-----------------------
+
+-----------------------
+#Copy stuff to AWS EC2
+scp -i mhassan_aws.pem -r datafabric_splunk.tgz ubuntu@ec2-34-206-145-1.compute-1.amazonaws.com:/home/ubuntu
+
+Docker stuff:
+docker ps -a
+docker images
+-----------------------
+
+HDFS stuff:
+$HADOOP_HOME/sbin/start-dfs.sh
+$HADOOP_HOME/bin/hdfs dfs -mkdir -p /user/root/archive/splunkaccesscombine_archive
+$HADOOP_HOME/bin/hdfs dfs -chmod -R 777 /user
+$HADOOP_HOME/bin/hadoop fs -chown -R splunk:splunk hdfs://localhost:8020/user/
+$HADOOP_HOME/bin/hdfs dfs -put /tmp/Hunkdata.json.gz /user/root/data/
+$HADOOP_HOME/bin/hdfs dfs -put /tmp/avro_08_01_2017.avro /user/root/data/avro/20170801
+-----------------------
+
+Yarn stuff:
+$HADOOP_HOME/sbin/stop-dfs.sh
+$HADOOP_HOME/sbin/start-dfs.sh
+----------------------
+
+Kafka stuff:
+#check if topic exist
+RESULT=`$KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper localhost:2181|grep $KAFKA_TOPIC`
+Crete topic:
+$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic $KAFKA_TOPIC
+Load data into topic
+cat $SAMPLE_KAFKA_LOG | $KAFKA_HOME/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic $KAFKA_TOPIC
+
+
+

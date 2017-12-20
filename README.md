@@ -9,9 +9,9 @@ The purpose of this docker container  is to correlate the components that make u
 
 ```
 cd ~/Library/Containers/com.docker.docker/Data/database/
-git reset --hard 
+git reset --hard
 
-cat com.docker.driver.amd64-linux/disk/size 
+cat com.docker.driver.amd64-linux/disk/size
 ```
 65536   number is in MiB so 20G should be 20971520:
 ```
@@ -22,7 +22,7 @@ git commit -s -m 'New target disk size'
 then
 ```
 rm ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/Docker.qcow2
-and restart docker? 
+and restart docker?
 ```
 There's no OSX UI support for this change at this point. For Linux change follow instructions here: https://bobcares.com/blog/docker-container-size/
 
@@ -30,7 +30,8 @@ There's no OSX UI support for this change at this point. For Linux change follow
 
 ## Note:
 
- All passwords in this tutorial are preset to “splunk123” (applies to everything)
+ All passwords in this tutorial are preset to “splunk123” (applies to everything).
+ Please to not disable sshd, hadoop uses rsync to communicate with the nodes.
 
 ## Pre-installed and pre-configured packages:
 - hadoop-2.9.0 (yarn)	http://apache.claz.org/hadoop/common/hadoop-2.9.0/hadoop-2.9.0.tar.gz
@@ -59,7 +60,7 @@ There's no OSX UI support for this change at this point. For Linux change follow
 Login:
 ```
 -The standard practice is:     docker exec DF01 /bin/bash
--We also support ssh (on port 2122):    ssh -p 2122 root@localhost 
+-We also support ssh (on port 2122):    ssh -p 2122 root@localhost
 ```
 
 
@@ -67,7 +68,7 @@ To copy files to container:   ```docker cp localfilename  DF01:/tmp```
 
 To start a container:	```docker start DF01```
 
-To create a container (first time will take ~5 mins while pulling image. ignore + sign ): 
+To create a container (first time will take ~5 mins while pulling image. ignore + sign ):
 
 ```diff
 + docker run -d --name=DF01 --hostname=DF01 -p 2122:22 -p 8000:8000 -p 8088:8088 -p 8188:8188 -p 10020:10020 -p 9090:9090 -p 50070:50070  splunknbox/splunk_data
