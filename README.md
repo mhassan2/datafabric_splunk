@@ -13,7 +13,7 @@ git reset --hard
 
 cat com.docker.driver.amd64-linux/disk/size
 ```
-65536   number is in MiB so 20G should be 20971520:
+Number is in MB, so 20G should be 20971520:
 ```
 echo 20971520 > com.docker.driver.amd64-linux/disk/size
 git add com.docker.driver.amd64-linux/disk/size
@@ -22,7 +22,7 @@ git commit -s -m 'New target disk size'
 then
 ```
 rm ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/Docker.qcow2
-and restart docker?
+and restart docker.
 ```
 There's no OSX UI support for this change at this point. For Linux change follow instructions here: https://bobcares.com/blog/docker-container-size/
 
