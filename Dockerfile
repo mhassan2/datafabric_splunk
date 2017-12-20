@@ -258,10 +258,15 @@ COPY scripts/hadoop /etc/init.d/
 COPY scripts/yarn /etc/init.d/
 COPY scripts/start-yarn.sh /opt/hadoop-2.9.0/sbin/
 COPY scripts/stop-yarn.sh /opt/hadoop-2.9.0/sbin/
+COPY scripts/start-dfs.sh /opt/hadoop-2.9.0/sbin/
+COPY scripts/stop-dfs.sh /opt/hadoop-2.9.0/sbin/
+
 RUN chmod +x /etc/init.d/hadoop
 RUN chmod +x /etc/init.d/yarn
 RUN chmod +x /opt/hadoop-2.9.0/sbin/start-yarn.sh
 RUN chmod +x /opt/hadoop-2.9.0/sbin/stop-yarn.sh
+RUN chmod +x /opt/hadoop-2.9.0/sbin/start-dfs.sh
+RUN chmod +x /opt/hadoop-2.9.0/sbin/stop-dfs.sh
 #--------------------------------------------------------------
 
 #>>>>>> disable Zookeeper install. It is embemded in Kafka install <<<<<<
