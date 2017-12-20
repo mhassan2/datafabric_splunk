@@ -1,0 +1,14 @@
+<setup>
+    <block title=" " endpoint="kafka_input_setup/kafka_settings" entity="kafka_settings">
+        <input field="all_settings">
+            <label> </label>
+            <type>text</type>
+        </input>
+        <text>
+            <![CDATA[
+                <script type="text/javascript" src="/en-US/static/app/Splunk_TA_kafka/js/setup.js"></script>
+                <script type="text/javascript" src="/en-US/static/app/Splunk_TA_kafka/js/setup_page.js"></script>
+            ]]>
+        </text>
+    </block>
+</setup>

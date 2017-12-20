@@ -1,0 +1,9 @@
+tar --exclude='/Users/mhassan/datafabric_splunk/.git' -czvf datafabric_splunk.tgz datafabric_splunk/*
+  898  cd datafabric_splunk
+  899  tar --exclude='./.git' -czvf datafabric_splunk.tgz datafabric_splunk/*
+  900  scp -i mhassan_aws.pem -r datafabric_splunk.tgz ubuntu@ec2-34-206-145-1.compute-1.amazonaws.com:/home/ubuntu
+  901  scp -i ~/mhassan_aws.pem -r datafabric_splunk.tgz ubuntu@ec2-34-206-145-1.compute-1.amazonaws.com:/home/ubuntu
+  902  docker ps -a
+  903  docker images
+  904  grep build clean_build.sh
+  905  grep run clean_build.sh

@@ -1,0 +1,132 @@
+#!/bin/bash
+NIFI_HOME="/opt/nifi-1.4.0"
+KAFKA_HOME="/opt/kafka_2.11-1.0.0"
+TIMER=10
+NIFI_TOPIC="splunknifi"
+SAMPLE_NIFI_LOG="$NIFI_HOME/splunk_sample_data/access1.log"
+
+
+#----------------------------------------------------------------------
+check_first_run(){
+printf "\033[1;33mChecking if first run...\033[0m\n"
+IS_NIFI_RUNNING=`jps | grep -i nifi`
+if [ -z "$IS_NIFI_RUNNING" ]; then
+	printf "\033[1;33mNifi is not running...\033[0m\n"
+  	printf "\033[1;33mSync with supervisord [supervisorctl stop nifi]: "
+	supervisorctl stop nifi
+else
+    printf "\033[1;33mChecking if topic [$NIFI_TOPIC] exists..\033[0m\n"
+	#create splunknifi topic if doesnt exist and load with data
+	RESULT=`$KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper localhost:2181|grep $NIFI_TOPIC`
+	if [ -n "$RESULT" ]; then
+		printf "\033[1;33mTopic exists [$NIFI_TOPIC]. Skipping first run configurations...\033[0m\n"
+	else
+		printf "\033[1;33mCreating topic [$NIFI_TOPIC]...\033[0m\n"
+		$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic $NIFI_TOPIC
+		printf "\033[1;33mConsuming $SAMPLE_NIFI_LOG into topic [$NIFI_TOPIC]\033[0m\n"
+		cat $SAMPLE_NIFI_LOG | $KAFKA_HOME/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic $NIFI_TOPIC
+	fi
+
+fi
+}
+#----------------------------------------------------------------------
+#----------------------------------------------------------------------
+check_NIFI_var(){
+#nifi will start by fault unless we dont want to (using ENV var)
+if [ "$NIFI" = "NO" ] || [ "$NIFI" = "no" ]; then
+	printf "\033[1;31mENV VAR is set NIFI=NO during docker run, must unset first (export NIFI='')\033[0m\n"
+  	printf "\033[1;31mWill not start NIFI...!\033[0m\n"
+  	exit
+fi
+}
+#----------------------------------------------------------------------
+#------------------------------------------------------------------
+nifi_start() {
+check_NIFI_var
+
+IS_NIFI_RUNNING=`jps | grep -i nifi`
+if [ -n "$IS_NIFI_RUNNING" ]; then
+	printf "\033[1;33mNifi is Already running...\033[0m\n"
+  	printf "\033[1;33mSync with supervisord [supervisorctl start nifi]: "
+	supervisorctl start nifi
+else
+	printf "\033[1;33mStarting Apache NIFI (in the background)...\033[0m\n"
+	#nifi.sh start: background     nifi.sh run:forground, ctr-c to kill
+ 	$NIFI_HOME/bin/nifi.sh start
+  	printf "\033[1;33mSync with supervisord [supervisorctl start nifi]: "
+	supervisorctl start nifi
+	printf "\033[0m\n"
+
+    printf "\033[1;33mPausing $TIMER seconds to give nifi time to start..\033[0m\n"
+	sleep $TIMER
+	check_first_run
+fi
+RETVAL=$?
+}
+#------------------------------------------------------------------
+#------------------------------------------------------------------
+nifi_stop() {
+	printf "\033[1;33mStopping NIFI...\033[0m\n"
+ 	$NIFI_HOME/bin/nifi.sh stop
+	printf "\033[1;33mSync with supervisord [supervisorctl stop nifi]: "
+	supervisorctl stop nifi
+	printf "\033[0m\n"
+	RETVAL=$?
+}
+#------------------------------------------------------------------
+#------------------------------------------------------------------
+nifi_restart() {
+	check_NIFI_var
+	printf "\033[1;33mRestarting nifi...\033[0m\n"
+	nifi_stop
+	sleep $TIMER
+	nifi_start
+	RETVAL=$?
+}
+#------------------------------------------------------------------
+#------------------------------------------------------------------
+nifi_status() {
+	IS_NIFI_RUNNING=`jps | grep -i nifi`
+if [ -n "$IS_NIFI_RUNNING" ]; then
+	printf "\033[1;33mnifi is Already running...\033[0m\n"
+  	printf "\033[1;33mSync with supervisord [supervisorctl start nifi]: "
+	supervisorctl start nifi
+else
+	printf "\033[1;33mnifi is not running...\033[0m\n"
+  	printf "\033[1;33mSync with supervisord [supervisorctl stop nifi]: "
+	supervisorctl stop nifi
+fi
+RETVAL=$?
+}
+#------------------------------------------------------------------
+
+case "$1" in
+	start)
+    		nifi_start
+    	;;
+  	stop)
+    		nifi_stop
+    	;;
+  	restart)
+    		nifi_restart
+    	;;
+  	status)
+    		nifi_status
+    	;;
+  	*)
+    	echo "Usage: $0 {start|stop|restart|status}"
+    	exit 1
+    	;;
+esac
+
+trap "$NIFI_HOME/bin/nifi.sh stop" SIGINT SIGTERM
+#Keep running if started by supervisord, otherwise terminate
+MY_PID=$$
+SUPERVISOR_PIDS=$(supervisorctl pid all)
+#printf "\033[1;33mmy pid: [$MY_PID]  suprverisord pids:[$SUPERVISOR_PIDS]\033[0m\n"
+if [[ "$SUPERVISOR_PIDS" =~ "$MY_PID" ]]; then
+	while true; do continue;done
+fi
+exit $RETVAL
+
+

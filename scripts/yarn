@@ -1,0 +1,86 @@
+#!/bin/bash
+#
+RETVAL=0
+HADOOP_HOME="/opt/hadoop-2.9.0"
+TIMER=30
+
+#----------------------------------------------------------------------
+check_YARN_var(){
+#YARN will start by fault unless we dont want to (using ENV var)
+if [ "$YARN" = "NO" ] || [ "$YARN" = "no" ]; then
+ printf "\033[1;31mENV VAR is set YARN=NO during docker run, must unset first (export YARN=YES)\033[0m\n"
+  printf "\033[1;31mWill not start YARN...!\033[0m\n"
+  exit
+fi
+}
+#----------------------------------------------------------------------
+#------------------------------------------------------------------
+yarn_start() {
+check_YARN_var
+
+printf "\033[1;33mStarting yarn...\033[0m\n"
+/opt/hadoop-2.9.0/sbin/start-yarn.sh
+printf "\033[1;33mSync with supervisord [supervisorctl start yarn]: "
+supervisorctl start yarn
+printf "\033[0m\n"
+
+#/opt/hadoop-2.9.0/bin/yarn timelineserver
+#/opt/hadoop-2.9.0/sbin/yarn-daemon.sh start timelineserver
+
+RETVAL=$?
+}
+#------------------------------------------------------------------
+#------------------------------------------------------------------
+yarn_stop() {
+printf "\033[1;33mStopping YARN...\033[0m\n"
+$HADOOP_HOME/sbin/stop-yarn.sh
+printf "\033[1;33mSync with supervisord [supervisorctl stop yarn]: "
+supervisorctl stop yarn
+printf "\033[0m\n"
+RETVAL=$?
+}
+#------------------------------------------------------------------
+#------------------------------------------------------------------
+yarn_restart() {
+check_YARN_var
+printf "\033[1;33mRestarting yarn...\033[0m\n"
+yarn_stop
+yarn_start
+RETVAL=$?
+}
+#------------------------------------------------------------------
+yarn_status() {
+  printf "\033[1;33myarn_status():Not implemented function***\033[0m\n"
+  RETVAL=$?
+}
+#------------------------------------------------------------------
+
+
+case "$1" in
+	start)
+    		yarn_start
+    	;;
+  	stop)
+    		yarn_stop
+    	;;
+  	restart)
+    		yarn_restart
+    	;;
+  	status)
+    		yarn_status
+    	;;
+  	*)
+    	echo "Usage: $0 {start|stop|restart|status}"
+    	exit 1
+    	;;
+esac
+
+trap "$HADOOP_HOME/sbin/stop-yarn.sh" SIGINT SIGTERM
+#Keep running if started by supervisord, otherwise terminate
+MY_PID=$$
+SUPERVISOR_PIDS=$(supervisorctl pid all)
+#printf "\033[1;33mmy pid: [$MY_PID]  suprverisord pids:[$SUPERVISOR_PIDS]\033[0m\n"
+if [[ "$SUPERVISOR_PIDS" =~ "$MY_PID" ]]; then
+	while true; do continue;done
+fi
+exit $RETVAL

@@ -1,0 +1,145 @@
+<endpoint name="data/inputs/kafka_mod">
+    <header>Kafka Data Inputs</header>
+    <breadcrumb>
+        <parent hidecurrent="False">datainputstats</parent>
+        <name i18ntag="">Kafka inputs</name>
+    </breadcrumb>
+    <elements>
+        <element name="sourceFields" type="fieldset">
+            <view name="list"/>
+            <view name="edit"/>
+            <view name="create"/>
+            <elements>
+                <element name="name" label="Kafka Data Input Name">
+                    <view name="list"/>
+                    <view name="create"/>
+                </element>
+
+                <element name="kafka_cluster" type="select" label="Kafka Cluster">
+                    <view name="list"/>
+                    <view name="edit"/>
+                    <view name="create"/>
+                    <key name="topItem">-- Select Kafka cluster --</key>
+                    <key name="dynamicOptions" type="dict">
+                        <key name="keyName">entry</key>
+                        <key name="splunkSource">'/admin/kafka_rest_handler/'</key>
+                        <key name="splunkSourceParams" type="dict">
+                            <key name="kafka_cluster_filter">'*'</key>
+                        </key>
+                        <key name="splunkSourceEntity">'kafka_clusters'</key>
+                        <key name="entityField">'clusters'</key>
+                    </key>
+                    <key name="exampleText">Select Kafka cluster to get data from.</key>
+                    <onChange>
+                        <key name="_action">triggerElementRefresh</key>
+                        <key name="_triggerOnLoad" type="bool">0</key>
+                        <key name="target">kafka_topic</key>
+                        <key name="makeVisible" type="bool">1</key>
+                    </onChange>
+                </element>
+
+                <element name="kafka_topic" type="select" label="Kafka Topic">
+                    <view name="list"/>
+                    <view name="edit"/>
+                    <view name="create"/>
+                    <key name="topItem">-- Select Kafka topic --</key>
+                    <key name="nullUnlessFieldSet">kafka_cluster</key>
+                    <key name="dynamicOptions" type="dict">
+                        <key name="keyName">entry</key>
+                        <key name="splunkSource">'/admin/kafka_rest_handler/'</key>
+                        <key name="splunkSourceParams" type="dict">
+                            <key name="kafka_cluster">form_defaults['kafka_cluster']</key>
+                            <key name="kafka_topic_filter">'*'</key>
+                        </key>
+                        <key name="splunkSourceEntity">'kafka_topics'</key>
+                        <key name="entityField">'topics'</key>
+                    </key>
+                    <key name="exampleText">Select Kafka topic to get data from.</key>
+                    <onChange>
+                        <key name="_action">triggerElementRefresh</key>
+                        <key name="_triggerOnLoad" type="bool">0</key>
+                        <key name="target">kafka_partition_offset</key>
+                        <key name="makeVisible" type="bool">1</key>
+                    </onChange>
+                </element>
+
+                <element name="kafka_partition" type="textfield" label="Kafka Partitions">
+                    <view name="list"/>
+                    <view name="edit"/>
+                    <view name="create"/>
+                    <key name="exampleText">Input partition numbers to be collected data from this topic. For example, 0,1,2</key>
+                </element>
+
+                <element name="kafka_partition_offset" type="select" label="Kafka Partition Offset">
+                    <options>
+                        <opt value="earliest" label="Earliest offset"/>
+                        <opt value="latest" label="Latest offset"/>
+                    </options>
+                    <view name="list"/>
+                    <view name="edit"/>
+                    <view name="create"/>
+                    <key name="topItem">-- Select partition offset --</key>
+                    <key name="nullUnlessFieldSet">kafka_cluster</key>
+                    <key name="exampleText">Selecting earliest offset will collect historical data from partitions of the selected topic.</key>
+                    <onChange>
+                        <key name="_action">triggerElementRefresh</key>
+                        <key name="_triggerOnLoad" type="bool">0</key>
+                        <key name="makeVisible" type="bool">1</key>
+                        <key name="target">kafka_topic_group</key>
+                    </onChange>
+                </element>
+
+                <element name="kafka_topic_group" type="textfield" label="Kafka Topic Group">
+                    <view name="list"/>
+                    <view name="edit"/>
+                    <view name="create"/>
+                    <key name="nullUnlessFieldSet">kafka_partition_offset</key>
+                    <key name="exampleText">Assign low-traffic topics in the same Kafka cluster to a single data collection process.</key>
+                </element>
+
+            </elements>
+        </element>
+
+        <element name="spl-ctrl_EnableAdvanced" type="checkbox" label="More settings" class="spl-mgr-advanced-switch">
+            <view name="edit"/>
+            <view name="create"/>
+            <onChange>
+                <key name="_action">showonly</key>
+                <key name="0">NONE</key>
+                <key name="1">ALL</key>
+                <group_set>
+                    <group name="advanced"/>
+                </group_set>
+            </onChange>
+        </element>
+        <element name="advanced" type="fieldset" class="spl-mgr-advanced-options">
+            <view name="edit"/>
+            <view name="create"/>
+            <elements>
+                <element name="indexField" type="fieldset">
+                    <key name="legend">Index</key>
+                    <view name="list"/>
+                    <view name="edit"/>
+                    <view name="create"/>
+                    <elements>
+                        <element name="index" type="select" label="Index">
+                            <view name="list"/>
+                            <view name="edit"/>
+                            <view name="create"/>
+                            <key name="dynamicOptions" type="dict">
+                                <key name="keyName">title</key>
+                                <key name="keyValue">title</key>
+                                <key name="splunkSource">/data/indexes</key>
+                                <key name="splunkSourceParams" type="dict">
+                                    <key name="search">'isInternal=false disabled=false'</key>
+                                    <key name="count">-1</key>
+                                </key>
+                            </key>
+                        </element>
+                    </elements>
+                </element>
+            </elements>
+        </element>
+
+    </elements>
+</endpoint>

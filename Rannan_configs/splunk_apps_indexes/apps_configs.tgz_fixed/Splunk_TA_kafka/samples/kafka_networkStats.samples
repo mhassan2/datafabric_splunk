@@ -1,0 +1,4 @@
+{"Value":0,"jvmDescription":null,"mbean_domain":"kafka.network","mbean_property_name":"ResponseQueueSize","mbean_property_type":"RequestChannel"}
+{"Value":0,"jvmDescription":null,"mbean_domain":"kafka.network","mbean_property_name":"ResponsesBeingSent","mbean_property_type":"SocketServer"}
+{"Count":4725686790588,"EventType":"percent","RateUnit":"NANOSECONDS","MeanRate":0.9993032817245602,"OneMinuteRate":0.9994153840613546,"FiveMinuteRate":0.9998225621024158,"FifteenMinuteRate":0.9960145065679123,"jvmDescription":null,"mbean_domain":"kafka.network","mbean_property_name":"NetworkProcessorAvgIdlePercent","mbean_property_type":"SocketServer"}
+{"Value":0,"jvmDescription":null,"mbean_domain":"kafka.network","mbean_property_name":"RequestQueueSize","mbean_property_type":"RequestChannel"}

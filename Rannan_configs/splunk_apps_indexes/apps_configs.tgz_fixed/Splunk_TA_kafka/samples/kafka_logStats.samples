@@ -1,0 +1,4 @@
+{"Value":3031,"jvmDescription":null,"mbean_domain":"kafka.log","mbean_property_name":"LogStartOffset","mbean_property_partition":"0","mbean_property_topic":"test_topic2","mbean_property_type":"Log"}
+{"Value":0,"jvmDescription":null,"mbean_domain":"kafka.log","mbean_property_name":"Size","mbean_property_partition":"0","mbean_property_topic":"test_topic2","mbean_property_type":"Log"}
+{"Value":1,"jvmDescription":null,"mbean_domain":"kafka.log","mbean_property_name":"NumLogSegments","mbean_property_partition":"0","mbean_property_topic":"mysql_prod","mbean_property_type":"Log"}
+{"Value":0,"jvmDescription":null,"mbean_domain":"kafka.log","mbean_property_name":"LogEndOffset","mbean_property_partition":"1","mbean_property_topic":"mysql_prod","mbean_property_type":"Log"}

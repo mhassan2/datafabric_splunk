@@ -1,0 +1,154 @@
+#!/bin/bash
+KAFKA_HOME="/opt/kafka_2.11-1.0.0"
+TIMER=20
+KAFKA_TOPIC="splunkkafka"
+SAMPLE_KAFKA_LOG="/tmp/sample_kafka.log"
+
+#/opt/zookeeper-3.4.11/bin/zkServer.sh status| grep "not running"
+
+#----------------------------------------------------------------------
+check_first_run(){
+printf "\033[1;33mChecking if first run...\033[0m\n"
+IS_KAFKA_RUNNING=`jps | grep -i kafka`
+if [ -z "$IS_KAFKA_RUNNING" ]; then
+	printf "\033[1;33mKafka is not running...\033[0m\n"
+  	printf "\033[1;33mSync with supervisord [supervisorctl stop kafka_zookeeper]: "
+	supervisorctl stop kafka_zookeeper
+else
+    printf "\033[1;33mChecking if topic [$KAFKA_TOPIC] exists..\033[0m\n"
+	#create splunkkafka topic if doesnt exist and load with data
+	RESULT=`$KAFKA_HOME/bin/kafka-topics.sh --list --zookeeper localhost:2181|grep $KAFKA_TOPIC`
+	if [ -n "$RESULT" ]; then
+		printf "\033[1;33mTopic exists [$KAFKA_TOPIC]. Skipping first run configurations...\033[0m\n"
+	else
+		printf "\033[1;33mCreating topic [$KAFKA_TOPIC]...\033[0m\n"
+		$KAFKA_HOME/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic $KAFKA_TOPIC
+		printf "\033[1;33mConsuming $SAMPLE_KAFKA_LOG into topic [$KAFKA_TOPIC]\033[0m\n"
+		cat $SAMPLE_KAFKA_LOG | $KAFKA_HOME/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic $KAFKA_TOPIC
+	fi
+fi
+}
+#----------------------------------------------------------------------
+#----------------------------------------------------------------------
+check_KAFKA_var(){
+#kafka will start by fault unless we dont want to (using ENV var)
+if [ "$KAFKA" = "NO" ] || [ "$KAFKA" = "no" ]; then
+	printf "\033[1;31mENV VAR is set KAFKA=NO during docker run, must unset first (export KAFKA='')\033[0m\n"
+  	printf "\033[1;31mWill not start kafka_zookeeper...!\033[0m\n"
+  	exit
+fi
+}
+#----------------------------------------------------------------------
+#------------------------------------------------------------------
+kafka_start() {
+check_KAFKA_var
+
+#Zookeeper must be running before we start kafka_zookeeper
+if ( zookeeper_status ); then
+	echo "zk NOT running"
+	/etc/init.d/zookeeper start
+else
+	echo "zk  running"
+fi
+
+
+IS_KAFKA_RUNNING=`jps | grep -i kafka`
+if [ -n "$IS_KAFKA_RUNNING" ]; then
+	printf "\033[1;33mKafka is Already running...\033[0m\n"
+  	printf "\033[1;33mSync with supervisord [supervisorctl start kafka_zookeeper]: "
+	supervisorctl start kafka_zookeeper
+else
+    printf "\033[1;33mStarting KAFKA as daemon...\033[0m\n"
+	$KAFKA_HOME/bin/kafka-server-start.sh -daemon $KAFKA_HOME/config/server.properties
+  	printf "\033[1;33mSync with supervisord [supervisorctl start kafka_zookeeper]: "
+	supervisorctl start kafka_zookeeper
+	printf "\033[0m\n"
+
+    printf "\033[1;33mPausing $TIMER seconds to give kafka time to start..\033[0m\n"
+	sleep $TIMER
+	check_first_run
+fi
+RETVAL=$?
+}
+#------------------------------------------------------------------
+#------------------------------------------------------------------
+kafka_stop() {
+	printf "\033[1;33mStopping KAFKA...\033[0m\n"
+	$KAFKA_HOME/bin/kafka-server-stop.sh
+	printf "\033[1;33mSync with supervisord [supervisorctl stop kafka_zookeeper]: "
+	supervisorctl stop kafka_zookeeper
+	printf "\033[0m\n"
+	RETVAL=$?
+}
+#------------------------------------------------------------------
+#------------------------------------------------------------------
+kafka_restart() {
+	check_KAFKA_var
+	printf "\033[1;33mRestarting kafka...\033[0m\n"
+	kafka_stop
+	sleep $TIMER
+	kafka_start
+	RETVAL=$?
+}
+#------------------------------------------------------------------
+#------------------------------------------------------------------
+kafka_status() {
+	IS_KAFKA_RUNNING=`jps | grep -i kafka`
+if [ -n "$IS_KAFKA_RUNNING" ]; then
+	printf "\033[1;33mKafka is Already running...\033[0m\n"
+  	printf "\033[1;33mSync with supervisord [supervisorctl start kafka_zookeeper]: "
+	supervisorctl start kafka_zookeeper
+else
+	printf "\033[1;33mKafka is not running...\033[0m\n"
+  	printf "\033[1;33mSync with supervisord [supervisorctl stop kafka_zookeeper]: "
+	supervisorctl stop kafka_zookeeper
+fi
+RETVAL=$?
+}
+#------------------------------------------------------------------
+#------------------------------------------------------------------
+function zookeeper_status() {
+IS_ZK_RUNNING=`jps | grep Quorum`
+if [ -n "$IS_ZK_RUNNING" ]; then
+#	printf "\033[1;33mZookeeper is Already running...\033[0m\n"
+	return 1
+else
+#	printf "\033[1;33mZookeeper is not running...\033[0m\n"
+	return 0
+fi
+RETVAL=$?
+}
+#------------------------------------------------------------------
+
+case "$1" in
+	start)
+    		kafka_start
+    	;;
+  	stop)
+    		kafka_stop
+    	;;
+  	restart)
+    		kafka_restart
+    	;;
+  	status)
+    		kafka_status
+    	;;
+  	*)
+    	echo "Usage: $0 {start|stop|restart|status}"
+    	exit 1
+    	;;
+esac
+
+trap "$KAFKA_HOME/bin/kafka-server-stop.sh" SIGINT SIGTERM
+#Keep running if started by supervisord, otherwise terminate
+MY_PID=$$
+SUPERVISOR_PIDS=$(supervisorctl pid all)
+#printf "\033[1;33mmy pid: [$MY_PID]  suprverisord pids:[$SUPERVISOR_PIDS]\033[0m\n"
+if [[ "$SUPERVISOR_PIDS" =~ "$MY_PID" ]]; then
+	while true; do continue;done
+fi
+exit $RETVAL
+
+
+
+

@@ -1,0 +1,14 @@
+#This is needed only with ssh access to containers.
+
+DEBIAN_FRONTEND="noninteractive"
+TERM="linux"
+SPLUNK_VERSION="7.0.1"
+SPLUNK_PRODUCT="splunk"
+SPLUNK_HOME="/opt/splunk"
+SPLUNK_GROUP="splunk"
+SPLUNK_USER="splunk"
+SPLUNK_BACKUP_DEFAULT_ETC="/var/opt/splunk"
+#LANG="en_US.utf8"
+JAVA_HOME="/usr/lib/jvm/java-8-oracle"
+NOTVISIBLE="in users profile"
+HADOOP_USER_NAME="splunk"

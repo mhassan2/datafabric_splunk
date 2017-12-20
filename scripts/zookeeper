@@ -1,0 +1,95 @@
+#!/bin/bash
+ZOOKEEPER_HOME="/opt/kafka_2.11-1.0.0"
+
+#----------------------------------------------------------------------
+check_zookeeper_var(){
+#zookeeper will start by fault unless we dont want to (using ENV var)
+if [ "$ZK" = "NO" ] || [ "$ZK" = "no" ]; then
+	printf "\033[1;31mENV VAR is set ZK=NO during docker run, must unset first (export ZK='')\033[0m\n"
+  	printf "\033[1;31mWill not start zookeeper...!\033[0m\n"
+  	exit
+fi
+}
+#----------------------------------------------------------------------
+#------------------------------------------------------------------
+zookeeper_start() {
+check_zookeeper_var
+#if running it will JVM instance
+IS_ZK_RUNNING=`jps | grep Quorum`
+if [ -n "$IS_ZK_RUNNING" ]; then
+	printf "\033[1;33mZookeeper is Already running...\033[0m\n"
+  	printf "\033[1;33mSync with supervisord [supervisorctl start zookeeper]: "
+	supervisorctl start zookeeper
+	printf "\033[0m\n"
+else
+    printf "\033[1;33mStarting Zookeeper as daemon...\033[0m\n"
+	$ZOOKEEPER_HOME/bin/zookeeper-server-start.sh -daemon $ZOOKEEPER_HOME/config/zookeeper.properties
+  	printf "\033[1;33mSync with supervisord [supervisorctl start zookeeper]: "
+	supervisorctl start zookeeper
+	printf "\033[0m\n"
+fi
+RETVAL=$?
+}
+#------------------------------------------------------------------
+#------------------------------------------------------------------
+zookeeper_stop() {
+	printf "\033[1;33mStopping zookeeper...\033[0m\n"
+	$ZOOKEEPER_HOME/bin/zookeeper-server-stop.sh
+	printf "\033[1;33mSync with supervisord [supervisorctl stop zookeeper]: "
+	supervisorctl stop zookeeper
+	printf "\033[0m\n"
+	RETVAL=$?
+}
+#------------------------------------------------------------------
+#------------------------------------------------------------------
+zookeeper_restart() {
+	check_zookeeper_var
+	printf "\033[1;33mRestarting zookeeper...\033[0m\n"
+	zookeeper_stop
+	zookeeper_start
+	RETVAL=$?
+}
+#------------------------------------------------------------------
+zookeeper_status() {
+	IS_ZK_RUNNING=`jps | grep Quorum`
+if [ -n "$IS_ZK_RUNNING" ]; then
+	printf "\033[1;33mZookeeper is Already running...\033[0m\n"
+else
+	printf "\033[1;33mZookeeper is not running...\033[0m\n"
+fi
+RETVAL=$?
+}
+#------------------------------------------------------------------
+
+
+case "$1" in
+	start)
+    		zookeeper_start
+    	;;
+  	stop)
+    		zookeeper_stop
+    	;;
+  	restart)
+    		zookeeper_restart
+    	;;
+  	status)
+    		zookeeper_status
+    	;;
+  	*)
+    	echo "Usage: $0 {start|stop|restart|status}"
+    	exit 1
+    	;;
+esac
+
+trap "$ZOOKEEPER_HOME/bin/zookeeper-server-stop.sh" SIGINT SIGTERM
+#Keep running if started by supervisord, otherwise terminate
+MY_PID=$$
+SUPERVISOR_PIDS=$(supervisorctl pid all)
+#printf "\033[1;33mmy pid: [$MY_PID]  suprverisord pids:[$SUPERVISOR_PIDS]\033[0m\n"
+if [[ "$SUPERVISOR_PIDS" =~ "$MY_PID" ]]; then
+	while true; do continue;done
+fi
+exit $RETVAL
+
+
+

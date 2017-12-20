@@ -1,0 +1,39 @@
+[app/install/install_source_checksum]
+version = 7.0.0
+modtime = 1508368571.699808000
+
+[inputs/http%3A%2F%2Fdb-connect-http-input]
+access = read : [ admin ], write : [ admin ]
+export = none
+owner = nobody
+version = 6.6.2
+modtime = 1502398615.666378000
+
+[ui-metrics-collector/collector]
+version = 6.6.2
+modtime = 1502236776.122659000
+
+[app/install/is_configured]
+version = 7.0.0
+modtime = 1508369063.170040000
+
+[identities/sqlite3_user]
+access = read : [ admin, db_connect_admin, db_connect_user ], write : [ admin, db_connect_admin ]
+export = none
+owner = admin
+version = 6.6.2
+modtime = 1502236869.928050000
+
+[identities/mysql_user]
+access = read : [ admin, db_connect_admin, db_connect_user ], write : [ admin, db_connect_admin ]
+export = none
+owner = admin
+version = 6.6.2
+modtime = 1502389081.124003000
+
+[savedsearches/World%20Popular%20Languages%20-%20MySQL]
+access = read : [ * ], write : [ * ]
+export = system
+owner = admin
+version = 6.6.2
+modtime = 1503008109.886002000

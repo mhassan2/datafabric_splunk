@@ -1,0 +1,49 @@
+<dashboard>
+  <label>Splunk Data Fabric Integration Sandbox Demo</label>
+  <row>
+    <panel>
+      <title>Data from Splunk</title>
+      <chart>
+        <title>Top 5 Status Type - Splunk</title>
+        <search ref="Top 5 Status Type - Splunk"></search>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Data from Hadoop Data Roll</title>
+      <chart>
+        <title>Top 5 Status Type Archive - Hadoop Data Roll</title>
+        <search ref="Top 5 Status Type Archive - Hadoop Data Roll"></search>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Data from Hadoop</title>
+      <chart>
+        <title>Top 10 Customer City - Hadoop</title>
+        <search ref="Top 10 Customer City - Hadoop"></search>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Data from MySQL</title>
+      <chart>
+        <title>World Popular Languages - MySQL</title>
+        <search ref="World Popular Languages - MySQL"></search>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+    <panel>
+      <title>Data from Nifi</title>
+      <chart>
+        <title>Top Errors Status Code - Nifi</title>
+        <search ref="Top Errors Status Code - Nifi"></search>
+        <option name="charting.drilldown">none</option>
+      </chart>
+    </panel>
+  </row>
+</dashboard>

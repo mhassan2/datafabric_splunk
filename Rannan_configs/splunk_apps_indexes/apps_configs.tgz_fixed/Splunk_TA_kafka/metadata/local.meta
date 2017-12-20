@@ -1,0 +1,31 @@
+[app/install/install_source_checksum]
+version = 6.6.2
+modtime = 1502313910.777595000
+
+[kafka_credentials/FavoriteKafkaCluster]
+owner = admin
+version = 6.6.2
+modtime = 1502314675.121451000
+
+[passwords/credential%3ASplunk_TA_kafka%3ALocalHF%3A]
+owner = admin
+version = 6.6.2
+modtime = 1502314675.145055000
+
+[kafka_forwarder_credentials/LocalHF]
+owner = admin
+version = 6.6.2
+modtime = 1502314675.153952000
+
+[app/install/is_configured]
+version = 6.6.2
+modtime = 1502314675.878580000
+
+[inputs/kafka_mod%3A%2F%2FFavoriteKafkaCluster_splunkkafka]
+owner = admin
+version = 6.6.2
+modtime = 1502314714.553308000
+
+[app/install/state]
+version = 6.6.2
+modtime = 1502314930.523617000

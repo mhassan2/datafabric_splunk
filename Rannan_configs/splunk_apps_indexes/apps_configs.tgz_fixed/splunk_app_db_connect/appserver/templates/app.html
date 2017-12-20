@@ -1,0 +1,16 @@
+<%inherit file="base.html"/>
+<div class="preload">
+    <div id="placeholder-splunk-bar"> 
+        <a href="/app/launcher/home" class="brand" title="splunk &gt; listen to your data">splunk<strong>&gt;</strong></a>
+    </div>
+    <div id="placeholder-app-bar"> 
+    
+    </div>
+    <div id="placeholder-main-section-body"> 
+    % if  hasattr(next, 'body'):
+    ${next.body()}
+    % else:
+    ${_('Loading...')}
+    % endif
+    </div>               
+</div>
