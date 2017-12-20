@@ -16,6 +16,8 @@ $HADOOP_HOME/bin/hdfs dfs -chmod -R 777 /user
 $HADOOP_HOME/bin/hadoop fs -chown -R splunk:splunk hdfs://localhost:8020/user/
 $HADOOP_HOME/bin/hdfs dfs -put /tmp/Hunkdata.json.gz /user/root/data/
 $HADOOP_HOME/bin/hdfs dfs -put /tmp/avro_08_01_2017.avro /user/root/data/avro/20170801
+
+Note: Every 60 minutes, the Splunk Archiver App on each indexer should execute the search “= | archivebuckets”. The “| archivebuckets forcerun=1” command will manually trigger bucket copying from the indexer to HDFS, similar to the following command:
 -----------------------
 
 Yarn stuff:
