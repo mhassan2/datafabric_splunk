@@ -3,9 +3,6 @@
 tar --exclude='./.git' -czvf datafabric_splunk.tgz datafabric_splunk/*
 -----------------------
 
------------------------
-#Copy stuff to AWS EC2
-scp -i mhassan_aws.pem -r datafabric_splunk.tgz ubuntu@ec2-34-206-145-1.compute-1.amazonaws.com:/home/ubuntu
 
 Docker stuff:
 docker ps -a
