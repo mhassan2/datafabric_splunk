@@ -40,6 +40,7 @@ LINE1="<CENTER><H2><font color=\"blue\"> &nbsp; Data Fabric Integration Sandbox 
 #useradmin
 LINE2="<CENTER><H3 style=\"text-align: left;\" <font color=\"white\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; User: </font> <font color=\"red\">$USERADMIN</font> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font>Password:</font> <font color=\"red\"> $USERPASS</font></H3></font></CENTER>"
 #hostname
+#docs: https://github.com/mhassan2/datafabric_splunk/wiki
 #LINE3=" <H3 style=\"text-align: left;\"><font color=\"#867979\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Hostname: </font><font color=\"#FF9033\"> $fullhostname &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font color=\"#867979\">  Host IP: </font><font color=\"#FF9033\"> $ip</font></H3>"
 #supervisor
 LINE4=" <H3 style=\"text-align: left;\"><font color=\"#867979\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SUPERVISOR:</font><font color=\"#FF9033\"> $SUPERVISOR_VER   &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font color=\"#867979\">  URL: </font><font color=\"#FF9033\"> $supervisor_url</font></H3>"
