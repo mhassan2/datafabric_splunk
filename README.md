@@ -1,4 +1,4 @@
-&#x1F534;     Full tutorial: https://github.com/mhassan2/datafabric_splunk/wiki
+:blue_book: Full tutorial: https://github.com/mhassan2/datafabric_splunk/wiki
 
 ## Introduction:
 The purpose of this docker container  is to correlate the components that make up the Splunk data fabric embrace initiative process. The practitioners can now immediately try and experience the power of a Splunk integration with different external software components like Hadoop, RDBMS, Kafka and Nifi, with the ability to search, visualize and analyze the pre-populated data. There is no hassle of setting them up separately!
@@ -112,7 +112,5 @@ Scott Haskell
 ```
 ## Finally:
 If like to build the image from scratch you can use my script clean_start.sh. Please be aware once the image is created locally it will not pull it from my hub repositoy (splunknbox). To do that you must manually delete your created image (docker rmi splunk_datafabric).
-
-stay tune for more details...
 
 
