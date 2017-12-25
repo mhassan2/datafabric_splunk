@@ -75,17 +75,18 @@ To copy files to container:   ```docker cp localfilename  DF01:/tmp```
 
 To start a container:	```docker start DF01```
 
-To create a container (first time will take ~5 mins while pulling image. ignore + sign ):
+To create a container (first time will take ~5 mins while pulling image:
 
-```diff
-+ docker run -d --name=DF01 --hostname=DF01 -p 2122:22 -p 8000:8000 -p 8088:8088 -p 8188:8188 -p 10020:10020 -p 9090:9090 -p 50070:50070  splunknbox/splunk_datafabric
+```Ruby
+docker run -d --name=DF01 --hostname=DF01 -p 2122:22 -p 8000:8000 -p 8088:8088 -p 8188:8188 -p 10020:10020 -p 9090:9090 -p 50070:50070  splunknbox/splunk_datafabric
 ```
 
 If you dont provide the environmental vars with the run command it will assume it is set to "YES".
 
 To prevent a service from staring set the var to "NO". Example, run all services except MySQL:
-```
+```Ruby
 time docker run -d --name=DF01 --hostname=DF01 -p 2122:22 -p 8000:8000 -p 8088:8088 -p 8188:8188 -p 10020:10020 -p 9090:9090 -p 50070:50070 -e MYSQL="NO"  splunknbox/splunk_datafabric
+```
 
 Available vars you can use with docker run command:
 MYSQL
