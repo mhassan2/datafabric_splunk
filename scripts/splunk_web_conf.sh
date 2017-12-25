@@ -31,7 +31,8 @@ yarn_url="<a href=\"http://localhost:8088\" >http://localhost:8088</a>"
 mysql_url="n/a"
 kafka_url="n/a"
 zookeeper_url="n/a"
-tutorial_url="<font color=\"lime\" <a href=\"https://github.com/mhassan2/datafabric_splunk/wiki\" >[Click Here For Step By Step Exercises] </a></font>"
+#tutorial_url="<font color=\"lime\" <a href=\"https://github.com/mhassan2/datafabric_splunk/wiki\" >[Click Here For Step By Step Exercises] </a></font>"
+tutorial_url="<a href=\"https://github.com/mhassan2/datafabric_splunk/wiki\" >https://github.com/mhassan2/datafabric_splunk/wiki </a>"
 
 touch /opt/splunk/etc/.ui_login	#prevent first time changeme password screen`
 /opt/splunk/bin/splunk edit user $USERADMIN -password $USERPASS -roles admin -auth admin:changeme
@@ -40,7 +41,8 @@ touch /opt/splunk/etc/.ui_login	#prevent first time changeme password screen`
 LINE1="<CENTER><H2><font color=\"blue\"> &nbsp; Data Fabric Integration Sandbox &nbsp; </font></H2><br/></CENTER>"
 
 #tutorial
-LINE2=" <H3 style=\"text-align: left;\"><font color=\"white\"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tutorial: &nbsp;&nbsp;$tutorial_url </font></H3>"
+#LINE2=" <H3 style=\"text-align: left;\"><font color=\"white\"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tutorial: </font> &nbsp;&nbsp;$tutorial_url </H3>"
+LINE2=" <H3 style=\"text-align: left;\"><font color=\"white\"> &nbsp;&nbsp;&nbsp;&nbsp; Tutorial: </font> &nbsp;$tutorial_url </H3>"
 
 #hostname
 #LINE3=" <H3 style=\"text-align: left;\"><font color=\"#867979\"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Hostname: </font><font color=\"#FF9033\"> $fullhostname &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <font color=\"#867979\">  Host IP: </font><font color=\"#FF9033\"> $ip</font></H3>"
