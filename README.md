@@ -75,47 +75,49 @@ To copy files to container:   ```docker cp localfilename  DF01:/tmp```
 
 To start a container:	```docker start DF01```
 
-To create a container (first time will take ~5 mins while pulling image:
+To create a container (first time will take ~5 mins while pulling image:<br>
 
 ```Ruby
 docker run -d --name=DF01 --hostname=DF01 -p 2122:22 -p 8000:8000 -p 8088:8088 -p 8188:8188 -p 10020:10020 -p 9090:9090 -p 50070:50070  splunknbox/splunk_datafabric
 ```
 
-If you dont provide the environmental vars with the run command it will assume it is set to "YES".
+If you dont provide the environmental vars with the run command it will assume it is set to "YES".<br>
 
-To prevent a service from staring set the var to "NO". Example, run all services except MySQL:
+To prevent a service from staring set the var to "NO". Example, run all services except MySQL:<br>
 ```Ruby
 time docker run -d --name=DF01 --hostname=DF01 -p 2122:22 -p 8000:8000 -p 8088:8088 -p 8188:8188 -p 10020:10020 -p 9090:9090 -p 50070:50070 -e MYSQL="NO"  splunknbox/splunk_datafabric
 ```
 
-Available vars you can use with docker run command:
+Available vars you can use with docker run command:<br>
+```
 MYSQL
 KAKFA
 NIFI
 HDFS
 ```
 
-Docker run command shows all ports for external services. To make more ports visible outside the container consult EXPOSE statements in Dockerfile.
+Docker run command shows all ports for external services. To make more ports visible outside the container consult EXPOSE statements in Dockerfile.<br>
 
 ## Exeternally available web services :
 ```
-http://localhost:8000		splunk (wouldn't have any other way!)
-http://localhost:50070	   	Hadoop (yarn)
-http://localhost:9090		Apache Nifi
-http://localhost:8088		Hadoop
+http://localhost:8000		splunk (wouldn't have any other way!)<br>
+http://localhost:50070	   	Hadoop (yarn)<Br>
+http://localhost:9090		Apache Nifi<br>
+http://localhost:8088		Hadoop<Br>
 ```
 
-## Credits:
+## Credits:<br>
 The following inviduals from Splunk for creating this tutorial and configuring splunk
 ```
-Rannan Dagan
-Scott Haskell
+Rannan Dagan<br>
+Scott Haskell<Br>
 ```
 ## Finally:
-If like to build the image from scratch you can use my script clean_start.sh. Please be aware once the image is created locally it will not pull it from my hub repositoy (splunknbox). To do that you must manually delete your created image (docker rmi splunk_datafabric).
+If like to build the image from scratch you can use my script clean_start.sh. Please be aware once the image is created locally it will not pull it from my hub repositoy (splunknbox). To do that you must manually delete your created image (docker rmi splunk_datafabric).<br>
 
 Document last update:<br>
 |------|
-|$Version: v1.0-1$<br>|
-|$Date:   Tue Dec 26,2017 - 14:26:27PM (-0600) $<br>|
+|$Version: v1.0-2$<br>|
+|$Date:   Tue Dec 26,2017 - 14:28:43PM (-0600) $<br>|
 |$Author: mhassan2 <mhassan@splunk.com>$<br>|
+
