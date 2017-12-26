@@ -1,3 +1,9 @@
+
+# $VERSION$
+# $DATE$
+# $AUTHOR$
+
+
 #Increase OSX default docker size link:
 #https://forums.docker.com/t/increase-docker-container-disk-space-on-os-x/26725/2
 #https://github.com/docker/dceu_tutorials/blob/master/07-volumes.md
