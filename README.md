@@ -114,4 +114,8 @@ Scott Haskell
 ## Finally:
 If like to build the image from scratch you can use my script clean_start.sh. Please be aware once the image is created locally it will not pull it from my hub repositoy (splunknbox). To do that you must manually delete your created image (docker rmi splunk_datafabric).
 
-
+Document last update:<br>
+|------|
+|$Version: v1.0-1$<br>|
+|$Date:   Tue Dec 26,2017 - 14:26:27PM (-0600) $<br>|
+|$Author: mhassan2 <mhassan@splunk.com>$<br>|
