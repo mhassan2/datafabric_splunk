@@ -1,6 +1,7 @@
-# $Version: v1.0-4$
-# $Date:   02 Tue Dec 26,2017 - 14:33:54PM (-0600) $
-# $Author: mhassan2 <mhassan@splunk.com>$
+
+# $VERSION$
+# $DATE$
+# $AUTHOR$
 #
 #Increase OSX default docker size link:
 #https://forums.docker.com/t/increase-docker-container-disk-space-on-os-x/26725/2
