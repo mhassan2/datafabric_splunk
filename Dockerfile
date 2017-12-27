@@ -1,6 +1,6 @@
 #-------------------------------------------------------
-# $VERSION: [v1.0-21] $
-# $DATE:    [Wed Dec 27,2017 - 11:11:38AM -0600] $
+# $VERSION: [v1.1-0] $
+# $DATE:    [Wed Dec 27,2017 - 12:12:10PM -0600] $
 # $AUTHOR:  [mhassan2 <mhassan@splunk.com>] $
 
 #Increase OSX default docker size link:
@@ -50,7 +50,7 @@
 
 
 FROM debian:jessie
-ENV GIT_VERSION="$VERSION: [v1.0-21] $"
+ENV GIT_VERSION="$VERSION: [v1.1-0] $"
 ENV CONTAINER_VER 1.0
 MAINTAINER mhassan@splunk.com version: $CONTAINER_VER
 ENV DEBIAN_FRONTEND noninteractive
