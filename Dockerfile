@@ -1,6 +1,7 @@
-# $VERSION$
-# $DATE$
-# $AUTHOR$
+
+# $Version$:[v1.0-11]
+# $Date$:[Tue Dec 26,2017 - 11:23:14PM -0600]
+# $Author$:[]
 #
 #Increase OSX default docker size link:
 #https://forums.docker.com/t/increase-docker-container-disk-space-on-os-x/26725/2
