@@ -3,7 +3,7 @@ git tag -a v1.0 -m "Version 1.0"
 git describe --tags --long
 git add . ; git commit -m "added versioning"
 git push
-
+https://gist.github.com/blackfalcon/8428401
 
 #Exclude dir from tar
 tar --exclude='./.git' -czvf datafabric_splunk.tgz datafabric_splunk/*

@@ -2,9 +2,9 @@
 #
 #------------------------------------------------------
 #   	scriptname: /etc/init.d/kafka
-#   	$VERSION: [v1.0-21] $
-#   	$DATE:    [Wed Dec 27,2017 - 11:11:38AM -0600] $
-#	$AUTHOR:  [mhassan2 <mhassan@splunk.com>] $
+#   	$VERSION: [v1.1-2] $
+#   	$DATE:    [Wed Dec 27,2017 - 01:13:47PM -0600] $
+#	$AUTHOR:  [Mohamad Hassan <mhassan@splunk.com>] $
 #
 #------------------------------------------------------
 
