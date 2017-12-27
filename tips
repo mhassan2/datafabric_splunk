@@ -4,6 +4,8 @@ git describe --tags --long
 git add . ; git commit -m "added versioning"
 git push
 https://gist.github.com/blackfalcon/8428401
+https://github.com/git-tips/tips#git-aliases
+
 
 #Exclude dir from tar
 tar --exclude='./.git' -czvf datafabric_splunk.tgz datafabric_splunk/*
