@@ -1,4 +1,13 @@
 #!/bin/bash
+#
+#------------------------------------------------------
+#   scriptname: /etc/init.d/nifi
+#   $VERSION: [v1.0-21] $
+#   $DATE:    [Wed Dec 27,2017 - 11:11:38AM -0600] $
+#	$AUTHOR:  [mhassan2 <mhassan@splunk.com>] $
+#
+#------------------------------------------------------
+
 NIFI_HOME="/opt/nifi-1.4.0"
 KAFKA_HOME="/opt/kafka_2.11-1.0.0"
 TIMER=10

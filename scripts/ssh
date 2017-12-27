@@ -1,9 +1,17 @@
 #!/bin/bash
+#
+#------------------------------------------------------
+#   scriptname:	/etc/init.d/ssh
+#   $VERSION: [v1.0-21] $
+#   $DATE:    [Wed Dec 27,2017 - 11:11:38AM -0600] $
+#	$AUTHOR:  [mhassan2 <mhassan@splunk.com>] $
+#
 #This script is customized by MyH to work with datafabric_splunk container:
 #-Supervisord aware for starts/stop
 #-If started by supervisord will block infinatly untill killed by supervisord
 #or this script
 #
+#------------------------------------------------------
 
 
 ### BEGIN INIT INFO

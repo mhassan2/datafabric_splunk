@@ -1,7 +1,12 @@
 #!/bin/bash
-# $VERSION: [v1.0-18] $
-# $DATE:    [Wed Dec 27,2017 - 01:01:34AM -0600] $
-# $AUTHOR
+#
+#------------------------------------------------------
+#   scriptname: /sbin/splunk_web_conf.sh
+#   $VERSION: [v1.0-21] $
+#   $DATE:    [Wed Dec 27,2017 - 11:11:38AM -0600] $
+#	$AUTHOR:  [mhassan2 <mhassan@splunk.com>] $
+#
+#------------------------------------------------------
 
 #set home screen banner in web.conf
 fullhostname=`echo $HOSTNAME`

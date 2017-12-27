@@ -1,5 +1,12 @@
 #!/bin/bash
 #
+#------------------------------------------------------
+#   scriptname: /etc/init.d/hadoop
+#   $VERSION: [v1.0-21] $
+#   $DATE:    [Wed Dec 27,2017 - 11:11:38AM -0600] $
+#	$AUTHOR
+#
+#------------------------------------------------------
 #TIPS: https://dzone.com/articles/top-10-hadoop-shell-commands
 RETVAL=0
 HADOOP_HOME="/opt/hadoop-2.9.0"

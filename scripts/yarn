@@ -1,5 +1,13 @@
 #!/bin/bash
 #
+#------------------------------------------------------
+#   scriptname:	/etc/init.d/yarn
+#   $VERSION: [v1.0-21] $
+#   $DATE:    [Wed Dec 27,2017 - 11:11:38AM -0600] $
+#	$AUTHOR:  [mhassan2 <mhassan@splunk.com>] $
+#
+#------------------------------------------------------
+
 RETVAL=0
 HADOOP_HOME="/opt/hadoop-2.9.0"
 TIMER=30

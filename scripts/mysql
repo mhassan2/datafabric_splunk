@@ -1,5 +1,11 @@
 #!/bin/bash
 #
+#------------------------------------------------------
+#   scriptname: /etc/init.d/mysql
+#   $VERSION: [v1.0-21] $
+#   $DATE:    [Wed Dec 27,2017 - 11:11:38AM -0600] $
+#	$AUTHOR:  [mhassan2 <mhassan@splunk.com>] $
+
 #This script is customized by MyH to work with datafabric_splunk container:
 #-Supervisord aware for starts/stop
 #-The very first run will load DB and set root password, subsequent runs will
@@ -8,6 +14,7 @@
 #or this script
 #-Will not start if ENV MYSQL=NO (passwd by docker run command)
 #
+#------------------------------------------------------
 #
 ### BEGIN INIT INFO
 # Provides:          mysql

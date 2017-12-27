@@ -1,5 +1,14 @@
 #!/bin/bash
+#
+#------------------------------------------------------
+#   scriptname: /sbin/splunk_first_run.sh
+#   $VERSION: [v1.0-21] $
+#   $DATE:    [Wed Dec 27,2017 - 11:11:38AM -0600] $
+#	$AUTHOR:  [mhassan2 <mhassan@splunk.com>] $
+#
 # This is script is copy from entrypoint.sh in Splunk official image
+#------------------------------------------------------
+
 set -e
 export SPLUNK_HOME="/opt/splunk"
 export SPLUNK_GROUP="splunk"

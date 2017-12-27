@@ -1,6 +1,6 @@
-
-# $VERSION: [v1.0-20] $
-# $DATE:    [Wed Dec 27,2017 - 02:02:02AM -0600] $
+#-------------------------------------------------------
+# $VERSION: [v1.0-21] $
+# $DATE:    [Wed Dec 27,2017 - 11:11:38AM -0600] $
 # $AUTHOR:  [mhassan2 <mhassan@splunk.com>] $
 
 #Increase OSX default docker size link:
@@ -17,6 +17,7 @@
 
 #Push to splunknbox repo on docker hub: (~115 mins)
 #time docker push splunknbox/splunk_datafabric
+#-------------------------------------------------------
 
 #--------COLORES ESCAPE CODES------------
 #for i in `seq 1 100`; do printf "\033[48;5;${i}m${i} "; done
@@ -49,7 +50,7 @@
 
 
 FROM debian:jessie
-ENV VERSION "$VERSION: [v1.0-20] $"
+ENV GIT_VERSION="$VERSION: [v1.0-21] $"
 ENV CONTAINER_VER 1.0
 MAINTAINER mhassan@splunk.com version: $CONTAINER_VER
 ENV DEBIAN_FRONTEND noninteractive
