@@ -118,7 +118,7 @@ If like to build the image from scratch you can use my script clean_start.sh. Pl
 
 Document last update:<br>
 |------|
-|$VERSION: [v1.0-14] $<br>|
-|$DATE: [Wed Dec 27,2017 - 01:01:13AM -0600] $<br>|
+|$VERSION: [v1.0-15] $<br>|
+|$DATE: [Wed Dec 27,2017 - 01:01:15AM -0600] $<br>|
 |$AUTHOR: [mhassan2 <mhassan@splunk.com>] $<br>|
 
