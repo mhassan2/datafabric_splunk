@@ -1,7 +1,6 @@
 
-
-# $VERSION: [v1.0-16] $
-# $DATE:    [Wed Dec 27,2017 - 01:01:30AM -0600] $
+# $VERSION: [v1.0-17] $
+# $DATE:    [Wed Dec 27,2017 - 01:01:33AM -0600] $
 # $AUTHOR:  [mhassan2 <mhassan@splunk.com>] $
 #
 #Increase OSX default docker size link:
