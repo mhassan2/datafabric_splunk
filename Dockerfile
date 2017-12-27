@@ -1,8 +1,7 @@
 
-# $VERSION: [v1.0-18] $
-# $DATE:    [Wed Dec 27,2017 - 01:01:34AM -0600] $
+# $VERSION: [v1.0-19] $
+# $DATE:    [Wed Dec 27,2017 - 02:02:00AM -0600] $
 # $AUTHOR:  [mhassan2 <mhassan@splunk.com>] $
-ENV VERSION $VERSION
 
 #Increase OSX default docker size link:
 #https://forums.docker.com/t/increase-docker-container-disk-space-on-os-x/26725/2
@@ -50,6 +49,7 @@ ENV VERSION $VERSION
 
 
 FROM debian:jessie
+ENV VERSION $VERSION: [v1.0-19] $
 ENV CONTAINER_VER 1.0
 MAINTAINER mhassan@splunk.com version: $CONTAINER_VER
 ENV DEBIAN_FRONTEND noninteractive
