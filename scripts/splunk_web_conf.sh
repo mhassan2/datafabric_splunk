@@ -2,8 +2,8 @@
 #
 #------------------------------------------------------
 #   scriptname: /sbin/splunk_web_conf.sh
-#   $VERSION: [v1.0-22] $
-#   $DATE:    [Wed Dec 27,2017 - 12:12:01PM -0600] $
+#	$VERSION: [v1.0-24] $
+#   $DATE:    [Wed Dec 27,2017 - 12:12:04PM -0600] $
 #	$AUTHOR:  [mhassan2 <mhassan@splunk.com>] $
 #
 #------------------------------------------------------
@@ -81,7 +81,7 @@ LINE10=" <H3 style=\"text-align: left;\"><font color=\"#867979\"> &nbsp; &nbsp; 
 
 
 #configure the custom login screen and http access for ALL (no exception)
-custom_web_conf="[settings]\nlogin_content=<div align=\"right\" style=\"border:2px solid green;\"> $LINE1 $LINE2 $LINE3 $LINE4 $LINE5 $LINE6 $LINE7 $LINE8 $LINE9 $LINE10 $LINE11 </div> <p><font color="\#867979\#"  <a href=\"https://github.com/mhassan2/datafabric_splunk\"  >https://github.com/mhassan2/datafabric_splunk </a>  &nbsp;&nbsp;&nbsp; ( $GIT_VERSION ) </font></p> \n\nenableSplunkWebSSL=0\n"
+custom_web_conf="[settings]\nlogin_content=<div align=\"right\" style=\"border:2px solid green;\"> $LINE1 $LINE2 $LINE3 $LINE4 $LINE5 $LINE6 $LINE7 $LINE8 $LINE9 $LINE10 $LINE11 </div> <p><font color="\#867979\#"  <a href=\"https://github.com/mhassan2/datafabric_splunk\"  >https://github.com/mhassan2/datafabric_splunk </a>  &nbsp;&nbsp;&nbsp; ( build: $GIT_VERSION ) </font></p> \n\nenableSplunkWebSSL=0\n"
 
 printf "$custom_web_conf" > /tmp/web.conf
 cp /tmp/web.conf /opt/splunk/etc/system/local/web.conf
