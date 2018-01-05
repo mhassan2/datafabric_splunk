@@ -27,7 +27,11 @@ docker volume rm $(docker volume ls -qf 'dangling=true')
 echo; echo
 osx_say "Building $IMAGE image, [15 minutes]..."
 cd ~/datafabric_splunk
-time docker build --no-cache=true -f Dockerfile -t $IMAGE .
+time docker build --squash --rm --no-cache=true -f Dockerfile.small -t $IMAGE .
+#clean up "none" images
+#docker rmi $(docker images -a | grep "^<none>" | awk '{print $3}')
+osx_say "removing dangling images.."
+ docker rmi $(docker images -a -f "dangling=true" -q )
 
 echo;echo
 osx_say "Creating $CONTAINER container. Enter to continue.."
